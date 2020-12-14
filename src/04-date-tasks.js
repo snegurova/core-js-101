@@ -96,8 +96,11 @@ function timeSpanToString(startDate, endDate) {
  */
 function angleBetweenClockHands(date) {
   let angle = Math.abs((date.getUTCHours() * 60 + date.getMinutes()) * 0.5 - date.getMinutes() * 6);
-  // eslint-disable-next-line no-nested-ternary
-  angle = angle > 540 ? 720 - angle : angle > 360 ? angle - 360 : angle > 180 ? 360 - angle : angle;
+  if (angle > 540) {
+    angle = 720 - angle;
+  } else if (angle > 360) {
+    angle -= 360;
+  } else if (angle > 180) { angle = 360 - angle; }
   angle = (angle * Math.PI) / 180;
   return angle;
 }
